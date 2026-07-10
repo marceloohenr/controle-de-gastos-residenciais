@@ -3,16 +3,30 @@ using HouseholdExpenses.Api.Entities;
 
 namespace HouseholdExpenses.Api.DTOs;
 
-public sealed record CreatePersonRequest(
-    [property: Required, StringLength(120, MinimumLength = 2)] string Name,
-    [property: Required, Range(0, 130)] int? Age);
+public sealed class CreatePersonRequest
+{
+    [Required, StringLength(120, MinimumLength = 2)]
+    public required string Name { get; init; }
+
+    [Required, Range(0, 130)]
+    public int? Age { get; init; }
+}
+
 public sealed record PersonResponse(int Id, string Name, int Age, DateTime CreatedAt);
 
-public sealed record CreateTransactionRequest(
-    [property: Required, StringLength(180, MinimumLength = 2)] string Description,
-    [property: Range(typeof(decimal), "0.01", "79228162514264337593543950335")] decimal Amount,
-    TransactionType Type,
-    [property: Range(1, int.MaxValue)] int PersonId);
+public sealed class CreateTransactionRequest
+{
+    [Required, StringLength(180, MinimumLength = 2)]
+    public required string Description { get; init; }
+
+    [Range(0.01, double.MaxValue)]
+    public decimal Amount { get; init; }
+
+    public TransactionType Type { get; init; }
+
+    [Range(1, int.MaxValue)]
+    public int PersonId { get; init; }
+}
 public sealed record TransactionResponse(int Id, string Description, decimal Amount, TransactionType Type, int PersonId, string PersonName, DateTime CreatedAt);
 
 public sealed record PersonSummaryResponse(int PersonId, string PersonName, decimal TotalIncome, decimal TotalExpenses, decimal Balance);
