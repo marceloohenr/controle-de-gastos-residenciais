@@ -46,11 +46,22 @@ public sealed class SummaryService(AppDbContext db) : ISummaryService
     public async Task<SummaryResponse> GetAsync(CancellationToken ct)
     {
         // A consulta parte das pessoas para que moradores sem movimentações também apareçam com totais zerados.
-        var people = await db.People.AsNoTracking().OrderBy(x => x.Name).Select(person => new PersonSummaryResponse(
-            person.Id, person.Name,
-            person.Transactions.Where(x => x.Type == TransactionType.Income).Sum(x => (decimal?)x.Amount) ?? 0,
-            person.Transactions.Where(x => x.Type == TransactionType.Expense).Sum(x => (decimal?)x.Amount) ?? 0,
-            (person.Transactions.Where(x => x.Type == TransactionType.Income).Sum(x => (decimal?)x.Amount) ?? 0) - (person.Transactions.Where(x => x.Type == TransactionType.Expense).Sum(x => (decimal?)x.Amount) ?? 0))).ToListAsync(ct);
+        var registeredPeople = await db.People.AsNoTracking()
+            .Include(person => person.Transactions)
+            .OrderBy(person => person.Name)
+            .ToListAsync(ct);
+
+        var people = registeredPeople.Select(person =>
+        {
+            var income = person.Transactions
+                .Where(transaction => transaction.Type == TransactionType.Income)
+                .Sum(transaction => transaction.Amount);
+            var expenses = person.Transactions
+                .Where(transaction => transaction.Type == TransactionType.Expense)
+                .Sum(transaction => transaction.Amount);
+
+            return new PersonSummaryResponse(person.Id, person.Name, income, expenses, income - expenses);
+        }).ToList();
         var income = people.Sum(x => x.TotalIncome); var expenses = people.Sum(x => x.TotalExpenses);
         return new SummaryResponse(people, new GeneralSummaryResponse(income, expenses, income - expenses));
     }
