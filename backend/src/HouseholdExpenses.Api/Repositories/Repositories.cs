@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HouseholdExpenses.Api.Repositories;
 
+/// <summary>Executa as operações de persistência de pessoas com consultas sem rastreamento.</summary>
 public sealed class PersonRepository(AppDbContext db) : IPersonRepository
 {
     public async Task<IReadOnlyList<Person>> ListAsync(string? search, CancellationToken ct)
@@ -27,6 +28,7 @@ public sealed class PersonRepository(AppDbContext db) : IPersonRepository
     public Task SaveAsync(CancellationToken ct) => db.SaveChangesAsync(ct);
 }
 
+/// <summary>Consulta e persiste transações junto aos dados necessários da pessoa associada.</summary>
 public sealed class TransactionRepository(AppDbContext db) : ITransactionRepository
 {
     public async Task<IReadOnlyList<Transaction>> ListAsync(int? personId, TransactionType? type, CancellationToken ct)

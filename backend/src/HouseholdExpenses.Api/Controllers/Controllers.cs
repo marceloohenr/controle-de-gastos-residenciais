@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HouseholdExpenses.Api.Controllers;
 
+/// <summary>Expõe os casos de uso de criação, consulta e exclusão de pessoas.</summary>
 [ApiController, Route("api/people")]
 public sealed class PeopleController(IPersonService service) : ControllerBase
 {
@@ -33,6 +34,7 @@ public sealed class PeopleController(IPersonService service) : ControllerBase
     }
 }
 
+/// <summary>Expõe o cadastro e a consulta das movimentações financeiras.</summary>
 [ApiController, Route("api/transactions")]
 public sealed class TransactionsController(ITransactionService service) : ControllerBase
 {
@@ -55,6 +57,7 @@ public sealed class TransactionsController(ITransactionService service) : Contro
     }
 }
 
+/// <summary>Disponibiliza os totais financeiros individuais e consolidados.</summary>
 [ApiController, Route("api/summary")]
 public sealed class SummaryController(ISummaryService service) : ControllerBase
 {

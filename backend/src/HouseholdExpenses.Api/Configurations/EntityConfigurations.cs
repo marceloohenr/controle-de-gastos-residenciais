@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HouseholdExpenses.Api.Configurations;
 
+/// <summary>Define os limites dos campos e o relacionamento em cascata de pessoas.</summary>
 public sealed class PersonConfiguration : IEntityTypeConfiguration<Person>
 {
     public void Configure(EntityTypeBuilder<Person> builder)
@@ -15,6 +16,7 @@ public sealed class PersonConfiguration : IEntityTypeConfiguration<Person>
     }
 }
 
+/// <summary>Define precisão monetária, campos obrigatórios e índices de transações.</summary>
 public sealed class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
 {
     public void Configure(EntityTypeBuilder<Transaction> builder)

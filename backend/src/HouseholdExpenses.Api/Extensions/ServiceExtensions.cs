@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HouseholdExpenses.Api.Extensions;
 
+/// <summary>Centraliza o registro da aplicação, persistência e recursos HTTP no contêiner de DI.</summary>
 public static class ServiceExtensions
 {
     public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
