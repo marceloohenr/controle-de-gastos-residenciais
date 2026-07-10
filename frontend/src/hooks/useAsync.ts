@@ -1,4 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
+
+/**
+ * Controla carregamento, erro, resultado e atualização manual de uma operação assíncrona.
+ * As dependências indicam quando a consulta precisa ser refeita.
+ */
 export function useAsync<T>(load:()=>Promise<T>, dependencies:unknown[]=[]){
  const [data,setData]=useState<T>();const [loading,setLoading]=useState(true);const [error,setError]=useState('');
  // O chamador informa as dependências que alteram a consulta; a função é recriada durante a renderização.
