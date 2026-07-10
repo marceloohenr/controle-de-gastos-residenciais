@@ -1,4 +1,6 @@
 import { useState,type FormEvent } from 'react';import { Search,Trash2,UserPlus } from 'lucide-react';import { api } from '../services/api';import { useAsync } from '../hooks/useAsync';import { useToast } from '../contexts/ToastContext';import { date } from '../utils/format';import { Empty,ErrorMessage,PageHeader,Skeleton } from '../components/UI';
+
+/** Reúne cadastro, busca, listagem e exclusão confirmada de pessoas. */
 export function People(){const [search,setSearch]=useState('');const [name,setName]=useState('');const [age,setAge]=useState('');const [saving,setSaving]=useState(false);const toast=useToast();const {data,loading,error,refresh}=useAsync(()=>api.people.list(search),[search]);
 async function submit(e:FormEvent){e.preventDefault();setSaving(true);try{await api.people.create({name,age:Number(age)});setName('');setAge('');toast('Pessoa cadastrada.');await refresh()}catch(e){toast(e instanceof Error?e.message:'Erro ao cadastrar','error')}finally{setSaving(false)}}
 async function remove(id:number,name:string){if(!confirm(`Excluir ${name} e todas as suas transações?`))return;try{await api.people.remove(id);toast('Pessoa excluída.');await refresh()}catch(e){toast(e instanceof Error?e.message:'Erro ao excluir','error')}}
