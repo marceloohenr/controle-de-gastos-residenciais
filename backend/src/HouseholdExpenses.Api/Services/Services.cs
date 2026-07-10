@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HouseholdExpenses.Api.Services;
 
+/// <summary>Implementa os casos de uso de pessoas sem expor detalhes do Entity Framework.</summary>
 public sealed class PersonService(IPersonRepository repository) : IPersonService
 {
     public async Task<IReadOnlyList<PersonResponse>> ListAsync(string? search, CancellationToken ct) =>
@@ -24,6 +25,7 @@ public sealed class PersonService(IPersonRepository repository) : IPersonService
     private static PersonResponse Map(Person x) => new(x.Id, x.Name, x.Age, x.CreatedAt);
 }
 
+/// <summary>Valida a pessoa e as restrições de idade antes de persistir uma transação.</summary>
 public sealed class TransactionService(ITransactionRepository transactions, IPersonRepository people) : ITransactionService
 {
     public async Task<IReadOnlyList<TransactionResponse>> ListAsync(int? personId, TransactionType? type, CancellationToken ct) =>
@@ -41,6 +43,7 @@ public sealed class TransactionService(ITransactionRepository transactions, IPer
     private static TransactionResponse Map(Transaction x) => new(x.Id, x.Description, x.Amount, x.Type, x.PersonId, x.Person.Name, x.CreatedAt);
 }
 
+/// <summary>Produz a visão financeira por pessoa e os totais gerais da residência.</summary>
 public sealed class SummaryService(AppDbContext db) : ISummaryService
 {
     public async Task<SummaryResponse> GetAsync(CancellationToken ct)

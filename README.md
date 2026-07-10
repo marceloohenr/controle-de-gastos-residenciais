@@ -33,7 +33,7 @@ O frontend estará em `http://localhost:5173`. Para usar outro endereço da API,
 
 O backend separa controllers, serviços, repositórios, contratos e persistência. Controllers tratam apenas HTTP; serviços concentram regras; repositórios isolam operações de dados. Exceções de domínio são convertidas centralmente em `ProblemDetails`. O relacionamento obrigatório entre pessoa e transação usa cascade no banco, evitando exclusões manuais.
 
-Os comentários no código foram reservados para decisões que não são evidentes pela leitura das instruções: a localização da regra de menores no domínio, a escolha de iniciar o resumo pelas pessoas e a responsabilidade do banco na exclusão em cascata. As demais operações usam nomes e métodos pequenos para evitar comentários que apenas repetiriam o código.
+As entidades, contratos e principais abstrações possuem documentação XML sobre suas responsabilidades. Comentários internos foram reservados para decisões que não são evidentes pela leitura das instruções: a localização da regra de menores no domínio, a escolha de iniciar o resumo pelas pessoas e a responsabilidade do banco na exclusão em cascata. As demais operações usam nomes e métodos pequenos para evitar comentários que apenas repetiriam o código.
 
 O frontend é organizado por páginas, componentes, hooks, contexto de notificações, serviços e tipos. A comunicação HTTP fica centralizada e todas as telas contemplam carregamento, erro e ausência de dados.
 

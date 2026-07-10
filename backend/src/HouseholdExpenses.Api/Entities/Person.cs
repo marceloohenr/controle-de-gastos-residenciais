@@ -1,5 +1,8 @@
 namespace HouseholdExpenses.Api.Entities;
 
+/// <summary>
+/// Representa um morador responsável por suas próprias movimentações financeiras.
+/// </summary>
 public sealed class Person
 {
     public int Id { get; set; }

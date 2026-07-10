@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HouseholdExpenses.Api.Exceptions;
 
+/// <summary>
+/// Converte exceções conhecidas em respostas Problem Details e evita expor detalhes internos ao cliente.
+/// </summary>
 public sealed class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
 {
     public async Task InvokeAsync(HttpContext context)

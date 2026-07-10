@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HouseholdExpenses.Api.Persistence;
 
+/// <summary>Unidade de trabalho do Entity Framework para pessoas e suas transações.</summary>
 public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Person> People => Set<Person>();
