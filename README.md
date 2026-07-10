@@ -2,6 +2,10 @@
 
 Aplicação full stack para registrar moradores, receitas e despesas e acompanhar o saldo individual e consolidado da residência.
 
+## Autor
+
+Marcelo Henrique de Albuquerque Bezerra Malagueta
+
 ## Tecnologias
 
 - ASP.NET Core 8 Web API, C# e Entity Framework Core
